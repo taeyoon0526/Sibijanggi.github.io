@@ -264,12 +264,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 진영 확인 함수
+    // 수정된 코드: 상대 진영 확인 함수
     function isEnemyTerritory(row, player) {
         if (player === '1') {
-            return row >= 3; // 플레이어 1에게 3행과 4행은 상대 진영
+            return row >= 3; // 플레이어 1에게 3행은 상대 진영 (4행은 존재하지 않음)
         } else {
-            return row < 1; // 플레이어 2에게 0행은 상대 진영
+            return row <= 0; // 플레이어 2에게 0행은 상대 진영
         }
     }
 
@@ -439,8 +439,71 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // 게임 리셋
-    function resetGame() {
-        location.reload();
+    // 게임 초기화 함수
+    function initializeGame() {
+        // 플레이어 1 (파란색) 초기 배치 - 0행
+        const p1Positions = [
+            { row: 0, col: 0, piece: 'sang' },  // 상(相) - 왼쪽
+            { row: 0, col: 1, piece: 'wang' },  // 왕(王) - 중앙  
+            { row: 0, col: 2, piece: 'jang' },  // 장(將) - 오른쪽
+            { row: 1, col: 1, piece: 'ja' }     // 자(子) - 왕 앞
+        ];
+        
+        // 플레이어 2 (빨간색) 초기 배치 - 3행
+        const p2Positions = [
+            { row: 3, col: 0, piece: 'jang' },  // 장(將) - 왼쪽 (상대방 기준)
+            { row: 3, col: 1, piece: 'wang' },  // 왕(王) - 중앙
+            { row: 3, col: 2, piece: 'sang' },  // 상(相) - 오른쪽 (상대방 기준)
+            { row: 2, col: 1, piece: 'ja' }     // 자(子) - 왕 앞
+        ];
+        
+        // 플레이어 1 말 배치
+        p1Positions.forEach(pos => {
+            const cell = board.rows[pos.row].cells[pos.col];
+            cell.dataset.piece = pos.piece;
+            cell.dataset.player = '1';
+            cell.textContent = getPieceDisplay(pos.piece);
+        });
+        
+        // 플레이어 2 말 배치  
+        p2Positions.forEach(pos => {
+            const cell = board.rows[pos.row].cells[pos.col];
+            cell.dataset.piece = pos.piece;
+            cell.dataset.player = '2';
+            cell.textContent = getPieceDisplay(pos.piece);
+        });
     }
+
+    // 수정된 게임 리셋 함수
+    function resetGame() {
+        // 보드 초기화
+        for (let row = 0; row < board.rows.length; row++) {
+            for (let col = 0; col < board.rows[row].cells.length; col++) {
+                const cell = board.rows[row].cells[col];
+                cell.textContent = '';
+                cell.removeAttribute('data-piece');
+                cell.removeAttribute('data-player');
+                cell.classList.remove('selected');
+            }
+        }
+        
+        // 게임 상태 초기화
+        currentPlayer = '1';
+        capturedPieces = { '1': [], '2': [] };
+        wangInEnemyTerritory = { '1': false, '2': false };
+        wangSurvived = { '1': false, '2': false };
+        
+        // UI 초기화
+        turnDisplay.textContent = '현재 턴: 플레이어 1 (파란색)';
+        turnDisplay.classList.add('turn-player1');
+        turnDisplay.classList.remove('turn-player2');
+        board.style.pointerEvents = 'auto';
+        
+        clearSelectionAndDirections();
+        updateCapturedPiecesDisplay();
+        initializeGame();
+    }
+
+    // 게임 초기화
+    initializeGame();
 });

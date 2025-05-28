@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     }
 
+
     // 선택 및 방향/하이라이트 표시 제거
     function clearSelectionAndDirections() {
         document.querySelectorAll('.direction, .highlight').forEach(el => el.remove());

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>십이장기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>십이장기</h1>
+
+<div class="game-board">
+    <table id="board">
+        <tr>
+            <td data-piece="jang" data-player="1">장(將)</td>
+            <td data-piece="wang" data-player="1">왕(王)</td>
+            <td data-piece="sang" data-player="1">상(相)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td data-piece="ja" data-player="1">자(子)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td data-piece="ja" data-player="2">자(子)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td data-piece="sang" data-player="2">상(相)</td>
+            <td data-piece="wang" data-player="2">왕(王)</td>
+            <td data-piece="jang" data-player="2">장(將)</td>
+        </tr>
+    </table>
+</div>
+
+<h3>[상대가 잡은 말]</h3>
+<table class="captured-pieces" id="captured-p2">
+    <tr>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+    </tr>
+</table>
+
+<h3>[내가 잡은 말]</h3>
+<table class="captured-pieces" id="captured-p1">
+    <tr>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+        <td class="captured-piece-cell"></td>
+    </tr>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>

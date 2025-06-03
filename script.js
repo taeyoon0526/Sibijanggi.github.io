@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!cell.dataset.piece && isValidPlacementCell(cell)) {
                 placeCapturedPiece(cell);
             } else {
-                showMessage("이 위치에는 말을 배치할 수 없습니다. 상대 진영이 아닌 빈 칸에만 배치 가능합니다.");
+                showMessage("상대 진영과 나의 진영을 제외한 가운데 칸에만 말을 배치할 수 있습니다.");
             }
             return;
         }
